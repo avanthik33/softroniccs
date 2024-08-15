@@ -26,8 +26,9 @@ router.get("/transaction/:id", async (req, res) => {
 router.post("/deposit/:id", async (req, res) => {
   try {
     const userId = req.params.id;
-    let { amount } = req.body;
+    let { amount } = req.body.amount;
     amount = parseInt(req.body.amount, 10); 
+    console.log(amount)
 
     if (amount <= 0) {
       return res.status(400).json({ message: "Invalid amount" });
