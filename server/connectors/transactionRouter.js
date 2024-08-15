@@ -27,8 +27,8 @@ router.post("/deposit/:id", async (req, res) => {
   try {
     const userId = req.params.id;
     let { amount } = req.body.amount;
-    amount = parseInt(req.body.amount, 10); 
-    console.log(amount)
+    amount = parseInt(req.body.amount, 10);
+    console.log(amount);
 
     if (amount <= 0) {
       return res.status(400).json({ message: "Invalid amount" });
@@ -56,7 +56,7 @@ router.post("/deposit/:id", async (req, res) => {
       balance: user.balance,
     });
   } catch (error) {
-    res.status(500).json({ message: "Server error",error:error.message });
+    res.status(500).json({ message: "Server error", error: error.message });
   }
 });
 
@@ -90,7 +90,11 @@ router.post("/withdraw/:id", async (req, res) => {
     await transaction.save();
     await user.save();
 
-    res.json({ message: "Withdrawal successful", balance: user.balance });
+    res.json({
+      status: "success",
+      message: "Withdrawal successful",
+      balance: user.balance,
+    });
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }
